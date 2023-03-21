@@ -4,6 +4,7 @@ var cli = d3.select("#clicks")
 var flag = d3.select("#flag")
 var flag2 = d3.select("#flag2")
 var clicks = 0;
+var state;
 const target_clicks = 50;
 var mode = practice;
 
@@ -52,9 +53,24 @@ function startTimer() {
 
 function stopTimer() {
     clearInterval(myTimer);
+
+    var time = Number(sec.html());
+
+    // if(state=="alone") {
+        d3.select("#" + state + "-previous").text(time);
+
+        var previousBest = Number(d3.select("#" + state + "-best").text());
+        if(isNaN(previousBest)) d3.select("#" + state + "-best").text(time);
+        else if (time < previousBest) d3.select("#" + state + "-best").text(time);
+    // }
 }
 
+// function updateTable(time, cell) {
+//     d3.select(cell).text(time);
+// }
+
 function practice() {
+    state = "practice";
     reset();
     d3.selectAll(".nav").classed("selected", false);
     d3.select("#practice-button").classed("selected", true);
@@ -65,6 +81,7 @@ function practice() {
 }
 
 function alone() {
+    state = "alone";
     reset();
     d3.selectAll(".nav").classed("selected", false);
     d3.select("#alone-button").classed("selected", true);
@@ -74,6 +91,7 @@ function alone() {
 }
 
 function competition() {
+    state = "competition";
     reset();
     d3.selectAll(".nav").classed("selected", false);
     d3.select("#competition-button").classed("selected", true);
