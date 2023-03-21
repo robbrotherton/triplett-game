@@ -56,13 +56,13 @@ function stopTimer() {
 
     var time = Number(sec.html());
 
-    // if(state=="alone") {
+    if(state!="practice") {
         d3.select("#" + state + "-previous").text(time);
 
         var previousBest = Number(d3.select("#" + state + "-best").text());
         if(isNaN(previousBest)) d3.select("#" + state + "-best").text(time);
         else if (time < previousBest) d3.select("#" + state + "-best").text(time);
-    // }
+    }
 }
 
 // function updateTable(time, cell) {
